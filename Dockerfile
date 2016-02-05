@@ -18,4 +18,5 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get clean \
 	&& apt-get autoremove \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+EXPOSE 4000
 WORKDIR /srv/www
