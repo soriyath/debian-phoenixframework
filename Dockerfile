@@ -11,7 +11,8 @@ RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
 
 # Install Phoenix Framework
 RUN DEBIAN_FRONTEND=noninteractive mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
-RUN DEBIAN_FRONTEND=noninteractive npm install -g brunch
+RUN DEBIAN_FRONTEND=noninteractive npm install -g brunch \
+	&& npm install
 
 # Clean
 RUN DEBIAN_FRONTEND=noninteractive apt-get clean \
