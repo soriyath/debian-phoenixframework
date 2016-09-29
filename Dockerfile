@@ -3,6 +3,8 @@ MAINTAINER Sumi Straessle
 
 ENV DEBIAN_FRONTEND noninteractive
 
+WORKDIR /usr/local/src
+
 # Install Erlang and Elixir
 RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
 	&& dpkg -i erlang-solutions_1.0_all.deb \
