@@ -6,15 +6,18 @@ ENV DEBIAN_FRONTEND noninteractive
 WORKDIR /usr/local/src
 
 # Install Erlang and Elixir
-RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
-	&& dpkg -i erlang-solutions_1.0_all.deb \
-	&& rm erlang-solutions_1.0_all.deb \
+RUN apt-get update \
+	&& apt-get install -y apt-transport-https
+
+RUN wget https://packages.erlang-solutions.com/debian/erlang_solutions.asc \
+	&& apt-key add erlang_solutions.asc \
+	&& echo "deb https://packages.erlang-solutions.com/debian wheezy contrib" >> /etc/apt/sources.list.d/erlang.list \
 	&& apt-get update \
-	&& apt-get install -y --fix-missing build-essential esl-erlang elixir inotify-tools \
-	&& mix local.hex --force
+	&& apt-get install -y --fix-missing esl-erlang elixir inotify-tools lksctp-tools 
 
 # Install Phoenix Framework
-RUN mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
+RUN mix local.hex \
+	&& mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
 RUN npm install -g brunch \
 	&& npm install
 
