@@ -13,7 +13,15 @@ RUN wget https://packages.erlang-solutions.com/debian/erlang_solutions.asc \
 	&& apt-key add erlang_solutions.asc \
 	&& echo "deb https://packages.erlang-solutions.com/debian wheezy contrib" >> /etc/apt/sources.list.d/erlang.list \
 	&& apt-get update \
-	&& apt-get install -y --fix-missing esl-erlang elixir inotify-tools lksctp-tools 
+	&& apt-get install -y --fix-missing esl-erlang inotify-tools lksctp-tools 
+
+# Compile elixir v 1.3.3
+RUN wget https://github.com/elixir-lang/elixir/archive/v1.3.3.tar.gz \
+	&& tar xzf v1.3.3.tar.gz \
+	&& rm v1.3.3.tar.gz \
+	&& cd elixir-1.3.3 \
+	&& make clean test \
+	&& echo "PATH=/usr/local/src/elixir-1.3.3/bin:$PATH" >> /etc/environment
 
 # Install Phoenix Framework
 RUN mix local.hex \
